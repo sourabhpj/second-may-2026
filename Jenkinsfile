@@ -35,8 +35,8 @@ pipeline {
                 script {
                      withEnv(["KUBECONFIG=/var/lib/jenkins/.kube/config"]) {
                 // फाईलचा पूर्ण मार्ग (full path) वापरा
-                sh "kubectl apply -f kubernetes/deployment.yaml --validate=false"
-                sh "kubectl apply -f kubernetes/service.yaml --validate=false"
+                sh "kubectl apply -f kubernetes/deployment.yaml --validate=false --insecure-skip-tls-verify"
+                sh "kubectl apply -f kubernetes/service.yaml --validate=false --insecure-skip-tls-verify"
                 sh "kubectl rollout restart deployment/my-nginx-deployment"
                     }
                 }
