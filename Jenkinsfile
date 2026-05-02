@@ -38,13 +38,11 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 script {
-                  // withEnv वापरल्यामुळे kubectl ला कॉन्फिग फाईल सापडेल
-            withEnv(["KUBECONFIG=/home/ubuntu/.kube/config"]) {
-                // ${WORKSPACE} वापरल्यामुळे फाईल पाथचा एरर येणार नाही
-                sh "kubectl apply -f ${WORKSPACE}/kubernetes/deployment.yaml"
-                sh "kubectl apply -f ${WORKSPACE}/kubernetes/service.yaml"
-                sh "kubectl rollout restart deployment/my-nginx-deployment"
-                       
+                      // withEnv साठी नेहमी (["KEY=VALUE"]) हा फॉरमॅट वापरा
+                    withEnv(["KUBECONFIG=/home/ubuntu/.kube/config"]) {
+                        sh "kubectl apply -f ${WORKSPACE}/kubernetes/deployment.yaml"
+                        sh "kubectl apply -f ${WORKSPACE}/kubernetes/service.yaml"
+                        sh "kubectl rollout restart deployment/my-nginx-deployment"
 
                 }
             }
