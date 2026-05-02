@@ -22,7 +22,7 @@ pipeline {
 
         stage('Push to Docker Hub') {
             steps {
-                withCredentials([string(credentialsId: 'docker-hub-pass', variable: 'DOCKER_HUB_PASSWORD')]) {
+                withCredentials([string(credentialsId: 'docker-hub-creds', variable: 'DOCKER_HUB_PASSWORD')]) {
                     sh "echo \$DOCKER_HUB_PASSWORD | docker login -u ${DOCKER_HUB_USER} --password-stdin"
                     sh "docker push ${DOCKER_HUB_USER}/${IMAGE_NAME}:${env.BUILD_NUMBER}"
                     sh "docker push ${DOCKER_HUB_USER}/${IMAGE_NAME}:latest"
