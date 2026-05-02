@@ -38,10 +38,11 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 script {
+                    // '.' vaprlya mule to current directory madhe baghel
                     // क्लस्टरवर तुमच्या YAML फाइल्स अप्लाय करणे
                     // खात्री करा की तुमच्या GitHub मध्ये 'kubernetes' नावाचा फोल्डर आहे
-                    sh "kubectl apply -f kubernetes/deployment.yaml"
-                    sh "kubectl apply -f kubernetes/service.yaml"
+                    sh "kubectl apply -f ./kubernetes/deployment.yaml"
+                    sh "kubectl apply -f ./kubernetes/service.yaml"
                     
                     // इमेज अपडेट झाली आहे हे खात्री करण्यासाठी rollout restart करा
                     sh "kubectl rollout restart deployment/my-nginx-deployment"
