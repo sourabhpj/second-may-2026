@@ -16,11 +16,11 @@ End-to-End CI/CD Pipeline: Jenkins, Docker, and Kubernetes <br>
 ​1. Environment Setup <br>
 ​Launched an AWS EC2 Ubuntu instance.
 ​Installed Docker, Jenkins, and Minikube.
-​Configured Security Groups to allow inbound traffic on port 8080 (Jenkins) and 8081 (App).
+​Configured Security Groups to allow inbound traffic on port 8080 (Jenkins) and 8081 (App).<br>
 ​2. Application & Dockerization <br>
 ​Developed a custom index.html file.
 ​Created a Dockerfile to package the HTML with Nginx.
-​Configured Jenkins to build and push the image to Docker Hub (sourabhpj94/my-nginx-image).
+​Configured Jenkins to build and push the image to Docker Hub (sourabhpj94/my-nginx-image). <br>
 ​3. Kubernetes Orchestration <br>
 ​Deployment: Defined deployment.yaml to manage application replicas.
 ​Service: Defined service.yaml as a NodePort to expose the app.
