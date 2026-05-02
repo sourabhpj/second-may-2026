@@ -35,8 +35,8 @@ pipeline {
                 script {
                     // KUBECONFIG आणि WORKSPACE दोन्ही सेट केले आहेत जेणेकरून Permission आणि Path एरर येणार नाहीत
                     withEnv(["KUBECONFIG= /var/lib/jenkins/.kube/config"]) {
-                        sh "kubectl apply -f ${WORKSPACE}/kubernetes/deployment.yaml"
-                        sh "kubectl apply -f ${WORKSPACE}/kubernetes/service.yaml"
+                        sh "kubectl apply -f ${WORKSPACE}/kubernetes/deployment.yaml --validate=false"
+                        sh "kubectl apply -f ${WORKSPACE}/kubernetes/service.yaml --validate=false"
                         sh "kubectl rollout restart deployment/my-nginx-deployment"
                     }
                 }
