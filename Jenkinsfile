@@ -33,11 +33,11 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 script {
-                    // KUBECONFIG आणि WORKSPACE दोन्ही सेट केले आहेत जेणेकरून Permission आणि Path एरर येणार नाहीत
-                    withEnv(["KUBECONFIG= /var/lib/jenkins/.kube/config"]) {
-                        sh "kubectl apply -f ${WORKSPACE}/kubernetes/deployment.yaml --validate=false"
-                        sh "kubectl apply -f ${WORKSPACE}/kubernetes/service.yaml --validate=false"
-                        sh "kubectl rollout restart deployment/my-nginx-deployment"
+                     withEnv(["KUBECONFIG=/var/lib/jenkins/.kube/config"]) {
+                // फाईलचा पूर्ण मार्ग (full path) वापरा
+                sh "kubectl apply -f kubernetes/deployment.yaml --validate=false"
+                sh "kubectl apply -f kubernetes/service.yaml --validate=false"
+                sh "kubectl rollout restart deployment/my-nginx-deployment"
                     }
                 }
             }
