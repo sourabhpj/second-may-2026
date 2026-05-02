@@ -38,14 +38,12 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 script {
-                    // १. पूर्ण पाथ वापरून 'deployment.yaml' रन करा
-            sh "KUBECONFIG=/home/ubuntu/.kube/config kubectl apply -f ${WORKSPACE}/kubernetes/deployment.yaml"
-            
-            // २. पूर्ण पाथ वापरून 'service.yaml' रन करा
-            sh "KUBECONFIG=/home/ubuntu/.kube/config kubectl apply -f ${WORKSPACE}/kubernetes/service.yaml"
-            
-            // ३. इमेज रिफ्रेश करण्यासाठी रोलआउट रीस्टार्ट
-            sh "KUBECONFIG=/home/ubuntu/.kube/config kubectl rollout restart deployment/my-nginx-deployment" 
+                  // withEnv वापरल्यामुळे kubectl ला कॉन्फिग फाईल सापडेल
+            withEnv(["KUBECONFIG=/home/ubuntu/.kube/config"]) {
+                // ${WORKSPACE} वापरल्यामुळे फाईल पाथचा एरर येणार नाही
+                sh "kubectl apply -f ${WORKSPACE}/kubernetes/deployment.yaml"
+                sh "kubectl apply -f ${WORKSPACE}/kubernetes/service.yaml"
+                sh "kubectl rollout restart deployment/my-nginx-deployment"
                        
 
                 }
